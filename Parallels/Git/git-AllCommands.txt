@@ -1,0 +1,78 @@
+git config --global user.name "Sandro Smarzaro"
+git config --global user.email 'sansmarzaro@gmail.com"
+git config --global core.editor <nome editor>
+git config --global alias.<abreviação> <comando que vai ser abreviado sempre>
+git config --list					//Lista as configurações
+
+git init 						//inciar projeto
+git status						//Mostra a situação do repositório
+git add <arquivo>					//Adicionar o arquivo ao commit . para todos
+git commit -m "comentário"				//Commit com mensagem
+git commit -am "comentário" 				//commit de mmodified pulando add
+git commit --amend -m					//editar o comentario do commit anterior
+
+git rm --cached <file>					//Removendo arquivos
+git clean -f						//Removendo até da lixeira não rastreados 
+git restore --staged <arquivo>				//Restaurando o arquivo de modificações e staged
+git mv <arquivo> <arquivoRenomeado>			//Renomeando arquivos
+git mv <arquivo> pasta/arquivo				//Movendo arquivos
+
+git log							//registros de todos commits
+git log --decorate
+git log --author="filtro"				//filtrar pelo nome do autor
+git log --since=year-mounth-day				//Log a partir da data
+git log --until=year-mounth-day				//Log antes da data
+git log --oneline					//Log em uma linah simples
+git log --graph="word"					//Log buscando por palavras chaves
+git shortlog						//registro dos commits simplificado
+git shortlog -sn					//log mostrando só o nome e o nº de commits
+
+git show <hash>						//Mostra as mudanças daquela hash
+git show <has> --color-word				//Mostra apenas as palavras mudadas naquela hash
+git diff						//vê a diferença em relação do ultimo arquivo
+git diff --name-only
+git diff -staged					//Diferenças do staged e repositório
+git diff --color-words					//Apenas as plavaras das diferenças 
+git checkout --<arquivo>				//ctrl+z das modificação
+
+git reset HEAD	<arquivo>				//tirar o arquivo do pronto pra commitar
+git reset --soft <hash>					//exclui o commit mas deixa os arquivos prontos em staged
+git reset --mixed <hash>				//exclui o commit mas deixa em modified
+git reset --hard <hash>					//exclui o commit e todas suas modificações
+
+cat ~/.ssh/id_ras.pub					//Pegando chave SSH existente
+ssh-keygen -t rsa -b 4096 -C "email"			//Add as keys se não tiver
+more id_rsa.pub						//Se estiver na sua maquina
+
+git remote add origin <link>		 		//sincronizar o repositorio a conta
+git remote						//mostra os repositórios existentes
+git remote -v						//+mais informações
+git push -u origin master 				//push pra enviar os arquivos no repositório, -u pra abreviar na próxima vez, <destino> <origem>
+git push <destino> <branch>
+git pull						//Atualizando as modificações
+git clone <link>					//baixar repositórios alheios
+
+git checkout -b <nome>					//criar branch indo pra ela
+git branch <branch>					//cria branch sem ir direto pra ela
+git branch						//mostra os branch's
+git checkout <branch>					//entrar no branch especificado com o nome
+gi branch -D <branch>					//deletar o branch
+
+git merge <branch>					//faz a união merge criando um novo commit com os dois juntos
+git rebase <branch>					//faz a união rebase 
+
+<arquivo.gitignore>					//dentro dele escrever com *.jpg por exemplo
+
+git stash 						//defaz as modificações e guarda elas
+git stash apply						//guarda as mudanças guardadas
+git stash list						//lista de todos os stashs
+git stash clear						//limpa todos os stash
+
+git tag -a <vesão> -m <mensagem>
+git push <destino> <origem> --tag 			//upar no github as versão
+git revert HEAD~3					//Recupera o terceiro último commit
+git convert <hash>					//apaga as modificações mas não o commit
+
+git <tag ou branch> -d <nome>				//apaga	apaga local
+git push origin:<tag>					//apaga até remoto
+

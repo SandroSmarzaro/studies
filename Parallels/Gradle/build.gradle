@@ -1,0 +1,77 @@
+plugins {
+    id 'aplication'
+    id 'checkstyle'
+    id 'pmd'
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.12'
+}
+
+aplication {
+    mainClassName = 'com.example.Main'
+}
+
+checkstyle {
+    toolVersion = '8.28'
+    showViolation = true
+    configLocation = file('build/checkstyle.xml')
+}
+
+pmd {
+    toolVersion = '6.21.0'
+    ignoreFailures = true
+    consoleOutput = true
+    ruleSetFile = file('build/rulesets/pmd.xml')
+}
+
+task firstTask() {
+    group "FirstMyGroup"
+    description "First task"
+
+    doFirst {
+        println "Before hello"
+    }
+    doLast {
+        println "Hello World!"
+    }
+}
+
+def SecondMyGroup = "SecondMyGroup"
+
+task secondTaks(group : SecondMyGroup, description : "Second task") {
+    dependsOn "firstTask" // Só é xecutado após o primeiro task executado com sucesso
+    finalizedBy "thirdTask" // Executa obrigatoriamente a task
+    mustRunAfter "firstTask" // Executa independentemente, mas em casos de mais de uma task, primeiro executa a first
+}
+
+tasks.named("tasks") {
+    doLast {
+        println "Modified tasks"
+    }
+}
+
+task deleteBuild(type: Delete) {
+    mustRunAfter = ["copyBuild", "zipBuild"]
+    delete 'build'
+}
+
+task copyBuild(type: Copy) {
+    from 'build'
+    into '../Realese/build_copy'
+}
+
+task zipBuild(type: Zip) {
+    baseName 'ExecutableBuild'
+    destinationDir '../Realese/build_zip'
+    from 'build'
+}
+
+task generateBuild() {
+    dependsOn = ["build", "test"]
+    finalizedBy = ["copyBuild", "zipBuild"]
+}
